@@ -1,0 +1,224 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<div id="main">
+		<!-- Intro -->
+			<section id="top" class="one dark cover">
+				<div class="container">
+
+					<header>
+						<h2 class="alt">Your room code is 12475.
+					</header>
+
+					<footer>
+						Some items need to be picked up, and some chores need to be done!
+					</footer>
+
+				</div>
+			</section>
+
+		<!-- Portfolio -->
+			<section id="tangibles" class="two">
+				<div class="container">
+
+					<header>
+						<h2>Tangibles</h2>
+					</header>
+
+					<p>You or your roommates need:</p>
+
+					<div class="table-wrapper">
+						<table id="itemtable">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Requester</th>
+									<th>Item</th>
+									<th>Price</th>
+									<th>Retrieved by</th>
+									<th>Tags *</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="font-size:0, margin:0"></td>
+								</tr>
+								<tr>
+									<td><div contenteditable>1/1/2019</div></td>
+									<td><div contenteditable>David</div></td>
+									<td><div contenteditable>Cereal</div></td>
+									<td><div contenteditable>15</div></td>
+									<td><div contenteditable>Daran</div></td>
+									<td><div contenteditable>12</div></td>
+									<td><input type="button" value="Delete" onclick="deleteRow(this)"/></td>
+								</tr>
+							</tbody>
+						</table>
+						<p><i>*Enter as user numbers (1-3) without spaces</i></p>
+						<button onclick="addItem()">Add Item</button>
+						<button onclick="saveTable()">Save Table</button>
+
+						<script>
+						function addItem()
+							{
+								var table = document.getElementById("itemtable");
+								var row = table.insertRow(2);
+								var cell1 = row.insertCell(0);
+								var cell2 = row.insertCell(1);
+								var cell3 = row.insertCell(2);
+								var cell4 = row.insertCell(3);
+								var cell5 = row.insertCell(4);
+								var cell6 = row.insertCell(5);
+								var cell7 = row.insertCell(6);
+								cell1.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell2.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell3.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell4.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell5.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell6.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell7.innerHTML = "<input type='button' value='Delete' onclick='deleteRow(this)'/>";
+							}
+						function saveTable() {
+							var table = document.getElementById("itemtable").outerHTML;
+							console.log(table);
+							$.post( "/calculate", { javascript_data: table });
+						}
+						function deleteRow(btn) {
+								var row = btn.parentNode.parentNode;
+								row.parentNode.removeChild(row);
+							}
+						</script>
+
+					</div>
+
+				</div>
+			</section>
+
+		<!-- Portfolio -->
+			<section id="chores" class="two">
+				<div class="container">
+
+					<header>
+						<h2>Chores</h2>
+					</header>
+
+					<p>You or your roommates need to:</p>
+
+					<div class="table-wrapper">
+						<table id="choretable">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Requester</th>
+									<th>Task</th>
+									<th>Completed by</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="font-size:0, margin:0"></td>
+								</tr>
+								<tr>
+									<td><div contenteditable>1/1/2019</div></td>
+									<td><div contenteditable>David</div></td>
+									<td><div contenteditable>Do my laundry</div></td>
+									<td><div contenteditable>Daran</div></td>
+									<td><input type="button" value="Delete" onclick="deleteRow(this)"/></td>
+								</tr>
+							</tbody>
+						</table>
+						<button onclick="addChore()">Add Chore</button>
+						<button onclick="saveTable()">Save Table</button>
+
+						<script>
+						function addChore()
+							{
+								var table = document.getElementById("choretable");
+								var row = table.insertRow(2);
+								var cell1 = row.insertCell(0);
+								var cell2 = row.insertCell(1);
+								var cell3 = row.insertCell(2);
+								var cell4 = row.insertCell(3);
+								var cell5 = row.insertCell(4);
+								cell1.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell2.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell3.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell4.innerHTML = "<div contenteditable>Click to Edit</div>";
+								cell5.innerHTML = "<input type='button' value='Delete' onclick='deleteRow(this)'/>";
+							}
+						</script>
+
+					</div>
+
+				</div>
+			</section>
+
+		<!-- Users -->
+		<!--
+			<section id="Users" class="three">
+						<div class="container">
+							<header>
+								<h2>User Overview</h2>
+							</header>
+
+						<div class="table-wrapper">
+							<table id="choretable">
+								<thead>
+									<tr>
+										<th>User</th>
+										<th>Balance</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="font-size:0, margin:0"></td>
+									</tr>
+									{% for user in users %}
+										<tr>
+											<td>{{user.name}}</td>
+											<td>{{user.balance}}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+							<header>
+								<h2>Balancing Steps</h2>
+							</header>
+							<ul>
+								{% for transaction in transactions %}
+									<li></li>
+								{% endfor %}
+							</ul>
+						</div>
+					</section>
+			-->
+
+		<!-- Contact -->
+			<section id="newmember" class="four">
+				<div class="container">
+
+					<header>
+						<h2>Add a Roommate</h2>
+					</header>
+
+					<p>Want someone to join you?</p>
+
+					<form action="/home">
+						<div class="row">
+							<div class="col-6 col-12-medium"><input type="text" name="fname" placeholder="First Name" /></div>
+							<div class="col-6 col-12-medium"><input type="text" name="lname" placeholder="Last Name" /></div>
+							<div class="col-12"><input type="text" name="email" placeholder="Email" /></div>
+							<div class="col-12">
+								<input type="submit" value="Add Roommate" />
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</section>
+	</div>
+
+{% endblock %}
